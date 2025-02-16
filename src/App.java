@@ -4,8 +4,6 @@ import java.util.Scanner;
 public class App {
 
   public static void main(String[] args) throws Exception {
-    System.out.println("Hello world: basics & java");
-
     // Scanner: obtener datos del usuario
     Scanner scanner = new Scanner(System.in);
     // Random: obetner indice aleatorio
