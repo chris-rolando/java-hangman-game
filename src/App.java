@@ -1,8 +1,9 @@
+// Librerías
 import java.util.Random;
 import java.util.Scanner;
 
 public class App {
-  
+
     // Constantes y variables globales
     private static final int MAX_TURNS = 10;
     private static final String[] WORDS = { "manzana", "banana", "naranja", "pera", "uva", "mango", "piña" };
@@ -11,56 +12,49 @@ public class App {
     private static int turns = 0;
     private static boolean gameOver = false;
 
-  public static void main(String[] args) throws Exception {
-// Inicializar juego
-iniciarJuego();
+    public static void main(String[] args) throws Exception {
+        // Inicializar juego
+        gameStart();
 
-// Lógica del juego
-jugar();
+        // Lógica del juego
+        gameLogic();
 
-// Mensaje final
-mostrarResultado();
-  }
-
-  /**
-     * Método para iniciar el juego
-     */
-    private static void iniciarJuego() {
-        Random random = new Random();
-        secretWord = WORDS[random.nextInt(WORDS.length)];
-        word = new char[secretWord.length()];
-        inicializarGuiones();
+        // Mensaje final
+        showMessage();
     }
 
-    /**
-     * Inicializa el arreglo de palabra con guiones bajos
-     */
-    private static void inicializarGuiones() {
+    private static void gameStart() {
+        Random random = new Random();
+        // random: obtener palabra aleatoria en cada juego nuevo 
+        secretWord = WORDS[random.nextInt(WORDS.length)];
+        // mostrar el tamaño de la palabra 
+        word = new char[secretWord.length()];
+        showWordSize();
+    }
+
+    private static void showWordSize() {
         for (int i = 0; i < word.length; i++) {
             word[i] = '_';
         }
     }
 
-    /**
-     * Método principal del juego
-     */
-    private static void jugar() {
+    private static void gameLogic() {
         Scanner scanner = new Scanner(System.in);
 
         while (!gameOver && turns < MAX_TURNS) {
-            mostrarEstado();
-            char letter = pedirLetra(scanner);
-            verificarLetra(letter);
-            verificarVictoria();
+            updateGame();
+            char letter = requestLetter(scanner);
+            checkLetter(letter);
+            checkWin();
         }
 
         scanner.close();
     }
 
     /**
-     * Muestra el estado actual de la palabra y los intentos restantes
+     * Actualizar la palabra e intentos restantes
      */
-    private static void mostrarEstado() {
+    private static void updateGame() {
         System.out.println("\nAdivina la palabra: " + String.valueOf(word) + " ("
                 + secretWord.length() + " letras)");
     }
@@ -68,7 +62,7 @@ mostrarResultado();
     /**
      * Pide una letra al usuario
      */
-    private static char pedirLetra(Scanner scanner) {
+    private static char requestLetter(Scanner scanner) {
         System.out.print("Introduce una letra, por favor: ");
         return Character.toLowerCase(scanner.next().charAt(0));
     }
@@ -76,7 +70,7 @@ mostrarResultado();
     /**
      * Verifica si la letra ingresada existe en la palabra secreta
      */
-    private static void verificarLetra(char letter) {
+    private static void checkLetter(char letter) {
         boolean existLetter = false;
 
         for (int i = 0; i < secretWord.length(); i++) {
@@ -95,7 +89,7 @@ mostrarResultado();
     /**
      * Verifica si el jugador ha ganado
      */
-    private static void verificarVictoria() {
+    private static void checkWin() {
         if (String.valueOf(word).equals(secretWord)) {
             System.out.println("\n¡Felicidades! Has adivinado la palabra secreta: " + secretWord);
             gameOver = true;
@@ -105,7 +99,7 @@ mostrarResultado();
     /**
      * Muestra el resultado final del juego
      */
-    private static void mostrarResultado() {
+    private static void showMessage() {
         if (!gameOver) {
             System.out.println("\n¡Qué pena, te has quedado sin intentos! GAME OVER");
             System.out.println("La palabra secreta era: " + secretWord);
