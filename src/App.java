@@ -73,6 +73,7 @@ public class App {
         if (!existLetter) {
             guessesRemaining--;
             System.out.println("¡Incorrecto! " + letter + " no existe. Quedan " + guessesRemaining + " intentos.");
+            hangmanImage(guessesRemaining);
         }
     }
 
@@ -85,8 +86,101 @@ public class App {
 
     private static void gameOver() {
         if (!gameOver) {
-            System.out.println("\n¡Qué pena, te has quedado sin intentos! GAME OVER");
+            System.out.println("\n¡Qué pena, te has quedado sin intentos!");
             System.out.println("La palabra secreta era: " + secretWord);
+        }
+    }
+
+    public static void hangmanImage(int stage) {
+        switch (stage) {
+            case 7:
+                System.out.println();
+                System.out.println();
+                System.out.println();
+                System.out.println();
+                System.out.println("_______");
+                System.out.println();
+                break;
+            case 6:
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("___|___");
+                break;
+            case 5:
+                System.out.println("   ____________");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("   | ");
+                System.out.println("___|___");
+                break;
+            case 4:
+                System.out.println("   ____________");
+                System.out.println("   |          _| _");
+                System.out.println("   |         /    \\");
+                System.out.println("   |        | *  * |");
+                System.out.println("   |         \\_-_/");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("   |");
+                System.out.println("___|___");
+                break;
+            case 3:
+                System.out.println("   ____________");
+                System.out.println("   |          _| _");
+                System.out.println("   |         /    \\");
+                System.out.println("   |        | *  * |");
+                System.out.println("   |         \\_-_/");
+                System.out.println("   |           |");
+                System.out.println("   |           |");
+                System.out.println("   |");
+                System.out.println("___|___");
+                break;
+            case 2:
+                System.out.println("   ____________");
+                System.out.println("   |          _| _");
+                System.out.println("   |         /    \\");
+                System.out.println("   |        | *  * |");
+                System.out.println("   |         \\_-_/");
+                System.out.println("   |           |");
+                System.out.println("   |           |");
+                System.out.println("   |          / \\ ");
+                System.out.println("___|___      /   \\");
+                break;
+            case 1:
+                System.out.println("   ____________");
+                System.out.println("   |          _| _");
+                System.out.println("   |         /    \\");
+                System.out.println("   |        | *  * |");
+                System.out.println("   |         \\_-_/");
+                System.out.println("   |          _|_");
+                System.out.println("   |         / | \\");
+                System.out.println("   |          / \\ ");
+                System.out.println("___|___      /   \\");
+                break;
+            case 0:
+                System.out.println("GAME OVER");
+                System.out.println("   ____________");
+                System.out.println("   |          _| _");
+                System.out.println("   |         /    \\");
+                System.out.println("   |        |      |");
+                System.out.println("   |         \\___/");
+                System.out.println("   |          _|_");
+                System.out.println("   |         / | \\");
+                System.out.println("   |          / \\ ");
+                System.out.println("___|___      /   \\");
+            break;
+            default:
+                System.out.println();
+            break;
         }
     }
 
