@@ -11,7 +11,9 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         // Inicializar juego
-        gameStart();
+        secretWord = gettingSecretWord(WORDLIST);
+        sizeGuessedLetters(secretWord.length());
+        hideLetters();
 
         // Lógica del juego
         logic();
@@ -20,13 +22,13 @@ public class App {
         gameOver();
     }
 
-    private static void gameStart() {
+    private static String gettingSecretWord(String[] wordList) {
         Random random = new Random();
-        // obtener palabra aleatoria
-        secretWord = WORDLIST[random.nextInt(WORDLIST.length)];
-        // tomar el tamaño de la palabra obtenida
-        guessedLetters = new char[secretWord.length()];
-        hideLetters();
+        return wordList[random.nextInt(wordList.length)];
+    }
+
+    private static void sizeGuessedLetters(int newSize) {
+        guessedLetters = new char[newSize];
     }
 
     private static void hideLetters() {
