@@ -1,15 +1,12 @@
-// Librerías {palabra aleatoria, ingreso de letras}
 import java.util.Random;
 import java.util.Scanner;
 
 public class App {
 
-    // Constantes y variables globales
-    private static final int GUESSES_REMAINING = 8;
     private static final String[] WORDLIST = { "manzana", "banana", "naranja", "pera", "uva", "mango", "piña" };
     private static String secretWord;
     private static char[] guessedLetters;
-    private static int turns = 0;
+    private static int guessesRemaining = 8;
     private static boolean gameOver = false;
 
     public static void main(String[] args) throws Exception {
@@ -17,35 +14,35 @@ public class App {
         gameStart();
 
         // Lógica del juego
-        gameLogic();
+        logic();
 
         // Mensaje final
-        showMessage();
+        gameOver();
     }
 
     private static void gameStart() {
         Random random = new Random();
-        // obtener palabra aleatoria en cada juego 
+        // obtener palabra aleatoria
         secretWord = WORDLIST[random.nextInt(WORDLIST.length)];
-        // mostrar el tamaño de la palabra 
+        // tomar el tamaño de la palabra obtenida
         guessedLetters = new char[secretWord.length()];
-        wordSize();
+        hideLetters();
     }
 
-    private static void wordSize() {
+    private static void hideLetters() {
         for (int i = 0; i < guessedLetters.length; i++) {
             guessedLetters[i] = '_';
         }
     }
 
-    private static void gameLogic() {
+    private static void logic() {
         Scanner scanner = new Scanner(System.in);
 
-        while (!gameOver && turns < GUESSES_REMAINING) {
+        while (!gameOver && guessesRemaining > 0) {
             updateGame();
             char letter = requestLetter(scanner);
             isLetterExists(letter);
-            checkWin();
+            win();
         }
 
         scanner.close();
@@ -72,25 +69,19 @@ public class App {
         }
 
         if (!existLetter) {
-            turns++;
-            System.out.println("¡Incorrecto! " + letter + " no existe. Quedan " + (GUESSES_REMAINING - turns) + " intentos.");
+            guessesRemaining--;
+            System.out.println("¡Incorrecto! " + letter + " no existe. Quedan " + guessesRemaining + " intentos.");
         }
     }
 
-    /**
-     * Verifica si el jugador ha ganado
-     */
-    private static void checkWin() {
+    private static void win() {
         if (String.valueOf(guessedLetters).equals(secretWord)) {
             System.out.println("\n¡Felicidades! Has adivinado la palabra secreta: " + secretWord);
             gameOver = true;
         }
     }
 
-    /**
-     * Muestra el resultado final del juego
-     */
-    private static void showMessage() {
+    private static void gameOver() {
         if (!gameOver) {
             System.out.println("\n¡Qué pena, te has quedado sin intentos! GAME OVER");
             System.out.println("La palabra secreta era: " + secretWord);
